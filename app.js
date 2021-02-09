@@ -1,13 +1,26 @@
-const searchSongs = async() => {
+// const searchSongs = async() => {
+//     const searchText = document.getElementById('search-field').value;
+//     const url = `https://api.lyrics.ovh/suggest/:${searchText}`
+//     //load data
+//     const res = await fetch(url)
+//         const data = await res.json()
+//         displaySongs(data.data)
+// }
+
+
+
+const searchSongs = () => {
     const searchText = document.getElementById('search-field').value;
     const url = `https://api.lyrics.ovh/suggest/:${searchText}`
     //load data
-    const res = await fetch(url)
-        const data = await res.json()
-        displaySongs(data.data)
-
-
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displaySongs(data.data))
+        .catch(error => displayError('Something Went Wrong! Please try again later'))
 }
+
+
+
 const displaySongs = songs => {
     const songContainer = document.getElementById('song-container');
     songContainer.innerHTML = '';
@@ -30,15 +43,20 @@ const displaySongs = songs => {
 
     });
 }
-const getLyric = async(artist, title) =>{
+const getLyric = async (artist, title) => {
     const url = ` https://api.lyrics.ovh/v1/${artist}/${title}`
-    const res = await fetch(url);
-    const data = await res.json();
-    displayLyrics(data.lyrics);
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displayLyrics(data.lyrics);
+    } catch (error) {
+        displayError('Sorry I failed to load lyrics! please try again later')
+    }
+
 }
 
 
-// const getLyric = async(artist, title) => {
+// const getLyric = (artist, title) => {
 //     const url = ` https://api.lyrics.ovh/v1/${artist}/${title}`
 //     fetch(url)
 //     .then (res => res.json())
@@ -47,8 +65,12 @@ const getLyric = async(artist, title) =>{
 
 
 
-const displayLyrics = lyrics =>{
+const displayLyrics = lyrics => {
     const lyricsDiv = document.getElementById('song-lyrics');
     lyricsDiv.innerText = lyrics;
 }
 
+const displayError = error => {
+    const errorTag = document.getElementById('error-message');
+    errorTag.innerText = error;
+}
