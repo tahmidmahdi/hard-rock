@@ -20,6 +20,15 @@ const searchSongs = () => {
         .catch(error => displayError('Something Went Wrong! Please try again later'))
 }
 
+var searchButton = document.getElementById("search-button");
+var searchField = document.getElementById("search-field");
+
+txt.addEventListener("keypress", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13)
+        go.click();
+});
+
 
 
 const displaySongs = songs => {
