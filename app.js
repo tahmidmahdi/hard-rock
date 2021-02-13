@@ -12,7 +12,7 @@
 const searchSongs = () => {
     const searchText = document.getElementById('search-field').value;
     const url = `https://api.lyrics.ovh/suggest/:${searchText}`
-    toggleSpinner(true);
+    toggleSpinner();
     //load data
     fetch(url)
         .then(res => res.json())
@@ -41,7 +41,7 @@ const displaySongs = songs => {
             <button onClick="getLyric('${song.artist.name}','${song.title}' )" class="btn btn-success">Get Lyrics</button>
         </div>`;
         songContainer.appendChild(songDiv);
-        toggleSpinner(false);
+        toggleSpinner();
 
     });
 }
@@ -79,10 +79,5 @@ const displayError = error => {
 
 const toggleSpinner = (show) =>{
     const spinner = document.getElementById('loading-spinner');
-    if(show){
-        spinner.classList.remove('d-none');
-    }
-    else{
-        spinner.classList.add('d-none')
-    }  
+    spinner.classList.toggle('d-none'); 
 }
