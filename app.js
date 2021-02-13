@@ -23,10 +23,12 @@ const searchSongs = () => {
 var searchButton = document.getElementById("search-button");
 var searchField = document.getElementById("search-field");
 
-txt.addEventListener("keypress", function(event) {
-    event.preventDefault();
-    if (event.keyCode == 13)
-        go.click();
+searchField.addEventListener("keypress", function (event) {
+    // event.preventDefault();
+    console.log('keycode', event.key, event.keyCode);
+    if (event.key === 'Enter') {
+        searchButton.click();
+    }
 });
 
 
@@ -63,7 +65,6 @@ const getLyric = async (artist, title) => {
     } catch (error) {
         displayError('Sorry I failed to load lyrics! please try again later')
     }
-
 }
 
 
@@ -86,7 +87,7 @@ const displayError = error => {
     errorTag.innerText = error;
 }
 
-const toggleSpinner = (show) =>{
+const toggleSpinner = (show) => {
     const spinner = document.getElementById('loading-spinner');
-    spinner.classList.toggle('d-none'); 
+    spinner.classList.toggle('d-none');
 }
