@@ -12,6 +12,7 @@
 const searchSongs = () => {
     const searchText = document.getElementById('search-field').value;
     const url = `https://api.lyrics.ovh/suggest/:${searchText}`
+    toggleSpinner();
     //load data
     fetch(url)
         .then(res => res.json())
@@ -73,4 +74,9 @@ const displayLyrics = lyrics => {
 const displayError = error => {
     const errorTag = document.getElementById('error-message');
     errorTag.innerText = error;
+}
+
+const toggleSpinner = () =>{
+    const spinner = document.getElementById('loading-spinner');
+    spinner.classList.remove('d-none');
 }
